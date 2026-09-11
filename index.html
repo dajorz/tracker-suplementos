@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracker de Precios de Suplementación</title>
+
+  <meta name="description" content="Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España.">
+  <link rel="canonical" href="https://dajorz.github.io/tracker-suplementos/">
+
+  <meta property="og:title" content="Tracker de Precios de Suplementación">
+  <meta property="og:description" content="Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dajorz.github.io/tracker-suplementos/">
+  <meta property="og:locale" content="es_ES">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Tracker de Precios de Suplementación">
+  <meta name="twitter:description" content="Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <header class="w-full border-b border-slate-200 bg-white">
+    <div class="max-w-4xl mx-auto w-full px-4 py-3">
+      <h1 class="text-base sm:text-lg font-bold tracking-tight">Tracker de Precios de Suplementación</h1>
+      <p class="mt-1 text-xs text-slate-500">
+        Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España<span class="text-slate-400"> · Con feedback de la comunidad de Reddit</span>
+      </p>
+    </div>
+  </header>
+
+  <div class="w-full border-b border-amber-200 bg-amber-50 text-amber-900">
+    <p class="max-w-4xl mx-auto w-full px-4 py-2 text-xs">
+      <span aria-hidden="true">⚠</span> Registro de precios no oficial y ajeno a las tiendas. Las cifras pueden estar desactualizadas; siempre prevalece el precio de la página de la tienda.
+    </p>
+  </div>
+
+  <main class="max-w-4xl mx-auto w-full px-4 pt-6 flex-1">
+
+    <section class="w-full mb-8">
+      <iframe
+        src="https://docs.google.com/spreadsheets/u/3/d/e/2PACX-1vS4kFZXNEAWRMb34W3yZiF3HItRKxUTmHtrLlq0wyfGXUSEwm7NrtQgKoQPmC2zhyKAbnz5Li6JGSY3/pubhtml"
+        width="100%"
+        style="height: 80vh; min-height: 600px;"
+        loading="lazy"
+        class="rounded-xl shadow-lg border-0"
+        title="Tracker de precios de suplementación"
+      ></iframe>
+    </section>
+
+    <section class="mt-8 mb-12 rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200 text-center">
+      <h2 class="text-xl font-semibold">¿Echas en falta algún producto?</h2>
+      <p class="mt-2 text-slate-600">Escríbeme y lo añado al tracker — o cuéntame cualquier sugerencia sobre la herramienta.</p>
+      <a id="suggest-product-link" href="#" class="mt-4 inline-block rounded-lg bg-slate-900 px-5 py-2.5 text-white font-medium hover:bg-slate-700 transition-colors">
+        Proponer producto
+      </a>
+    </section>
+
+  </main>
+
+  <div id="cookie-consent-banner" class="fixed bottom-0 inset-x-0 hidden bg-slate-900 text-slate-100 px-4 py-4 shadow-lg">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+      <p class="text-sm flex-1">
+        Usamos cookies de analítica para entender el uso de la página. Puedes aceptarlas o rechazarlas.
+      </p>
+      <div class="flex gap-2 shrink-0">
+        <button id="cookie-reject" class="rounded-lg px-4 py-2 text-sm font-medium bg-slate-700 hover:bg-slate-600 transition-colors">Rechazar</button>
+        <button id="cookie-accept" class="rounded-lg px-4 py-2 text-sm font-medium bg-white text-slate-900 hover:bg-slate-200 transition-colors">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Address split into fragments deliberately (anti-scraping) — do not merge into a literal string.
+    (function buildMailtoLink() {
+      var user = 'virtualtoolsapps';
+      var domain = 'gmail.com';
+      var address = user + '@' + domain;
+      var subject = encodeURIComponent('Sugerencia para el tracker');
+      var link = document.getElementById('suggest-product-link');
+      link.href = 'mailto:' + address + '?subject=' + subject;
+    })();
+  </script>
+
+  <script>
+    // Consent-gated GA4 loader. Replace G-XXXXXXXXXX with the real GA4 measurement ID before relying on analytics.
+    (function consentGate() {
+      var GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+      var STORAGE_KEY = 'cookie-consent';
+      var banner = document.getElementById('cookie-consent-banner');
+      var acceptBtn = document.getElementById('cookie-accept');
+      var rejectBtn = document.getElementById('cookie-reject');
+
+      function loadGtag() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', GA_MEASUREMENT_ID);
+      }
+
+      var choice = localStorage.getItem(STORAGE_KEY);
+      if (choice === 'accepted') {
+        loadGtag();
+      } else if (choice !== 'rejected') {
+        banner.classList.remove('hidden');
+      }
+
+      acceptBtn.addEventListener('click', function () {
+        localStorage.setItem(STORAGE_KEY, 'accepted');
+        banner.classList.add('hidden');
+        loadGtag();
+      });
+
+      rejectBtn.addEventListener('click', function () {
+        localStorage.setItem(STORAGE_KEY, 'rejected');
+        banner.classList.add('hidden');
+      });
+    })();
+  </script>
+
+</body>
+</html>
