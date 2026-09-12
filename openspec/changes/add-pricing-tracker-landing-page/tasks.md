@@ -40,4 +40,4 @@
 - [x] 7.3 Verify no `_ga` cookie and no request to `googletagmanager.com` occurs before accepting consent, and that both appear after accepting
 - [x] 7.4 Verify the "Proponer producto" button opens a mail client addressed to `virtualtoolsapps@gmail.com` with the prefilled subject, and that the address does not appear in the page source
 - [x] 7.5 Add brief GitHub Pages enablement note (Settings → Pages → deploy from root of default branch) to repo README or PR description
-- [ ] 7.6 Guide the user through creating a real GA4 property and replacing the placeholder measurement ID (follow-up, tracked separately from this change's completion)
+- [x] 7.6 Guide the user through creating a real GA4 property and replacing the placeholder measurement ID (follow-up, tracked separately from this change's completion)
