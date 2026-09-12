@@ -25,5 +25,5 @@
 - [x] 4.2 Confirm "Cerrar" dismisses the dialog and "Aceptar" hides the banner
 - [x] 4.3 Confirm the "Cookies" bar reopens the banner after a choice has been stored
 - [x] 4.4 Confirm the policy adds no vertical space to the page while closed
-- [ ] 4.5 On the deployed page, reject after accepting and confirm the `_ga` cookies are gone and no further `google-analytics.com/g/collect` requests are made
-- [ ] 4.6 On the deployed page, accept consent and confirm the visit appears in GA4 Realtime
+- [x] 4.5 On the deployed page, reject after accepting and confirm the `_ga` cookies are gone and no further `google-analytics.com/g/collect` requests are made
+- [x] 4.6 On the deployed page, accept consent and confirm the visit appears in GA4 Realtime
