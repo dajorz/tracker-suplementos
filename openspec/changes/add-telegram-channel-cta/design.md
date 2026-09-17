@@ -47,6 +47,8 @@ Se elige **A**.
 
 **Frente a E**: cumple toda la spec vigente sin tocar nada, y por el scroll interno del iframe no lo vería prácticamente nadie.
 
+**Medido tras implementar:** la tira ocupa 48px y deja el borde superior del iframe a 178px en un viewport de 900px. La copy acordada necesita 810px y solo hay 714px junto al botón, así que ocupa dos líneas en desktop. Se acepta: las tres variantes que caben en una línea sacrificaban o el gancho inicial o la promesa «Nada más.», y ambos son carga útil (Decisión 5). "Tira slim" pasa a significar **como máximo dos líneas de texto**, no exactamente una.
+
 ### Decisión 2 — Distinguir por afordancia, no por color
 
 Dos tiras de color apiladas invitan a la ceguera de banner, y la que perdería sería la legal. La distinción no se delega en el tinte: **la tira de Telegram lleva el único control accionable de toda la región superior**. El ojo separa "leer" de "pulsar" mucho antes que separa ámbar de índigo.
@@ -100,7 +102,7 @@ Consecuencia operativa: fijar posición y copy, y no tocarlos durante 3–4 sema
 
 ### Decisión 8 — Tinte sky claro, subordinado al ámbar
 
-La tira usa `bg-sky-50` con borde inferior `sky-200` y el botón sólido en `sky-600`/`slate-900`.
+La tira usa `bg-sky-50` y el botón sólido en `sky-600`. Sin `border-b`: el cambio de tono contra el aviso (`slate-50`) y contra el área de contenido ya marca los bordes, y una regla más solo añade ruido a una zona que acumula tres bandas en 177px.
 
 Se descarta el azul saturado de marca Telegram: convierte la tira en un banner publicitario reconocible y activa la ceguera de banner que la Decisión 2 intenta evitar —arrastrando consigo al disclaimer legal contiguo.
 
@@ -108,12 +110,49 @@ Se descarta el neutro puro (`bg-white`/`bg-slate-100`) porque, pegado a una cabe
 
 `sky-50` es del mismo registro de saturación que `amber-50`, así que ninguna de las dos domina a la otra por intensidad: la jerarquía la marca el botón, que es el único elemento con color sólido en toda la región superior. Además el azul frente al ámbar separa semánticamente "información útil" de "aviso", que es exactamente la distinción que interesa.
 
+### Decisión 9 — El aviso de precios se neutraliza a `slate`
+
+Pasa de `amber-50`/`amber-200`/`amber-900` con icono ⚠ a `slate-50`/`slate-200`/`slate-600` sin icono. El texto, la posición y la imposibilidad de ocultarlo no cambian.
+
+El `design.md` de `compact-spreadsheet-first-header` justificaba el ámbar así: *"it is the one element allowed to draw attention away from the sheet"*. Esa premisa la invalida este mismo cambio al introducir una segunda banda de color. Es el mismo patrón que la prohibición de alertas: la decisión no era incorrecta, la condición que la sostenía dejó de cumplirse.
+
+El ⚠ es el peor infractor: convierte una nota de letra pequeña en un estado de error, y la página no está en error. Sin ámbar y sin triángulo, el aviso se lee como lo que es —letra pequeña de la cabecera— y la tira de Telegram queda como el único punto de color sobre la tabla, que es el objetivo.
+
+Esto **refuerza** la Decisión 2 en lugar de contradecirla: si solo hay una banda de color y un solo control accionable, la distinción por afordancia ya no tiene que competir con nada. Deja obsoleto el argumento de la Decisión 8 sobre "mismo registro de saturación que `amber-50`", pero no la elección de `sky`: sigue siendo preferible al azul saturado de marca por el mismo motivo de ceguera de banner.
+
+**No se toca el texto legal.** Ya cabe en una línea a 1280px, así que acortarlo no ahorra altura, y reescribir una cláusula de exención sin ganancia visual es riesgo sin contrapartida.
+
+**Reglas horizontales.** Con tres bandas apiladas, los `border-b` del aviso y de la tira de Telegram eran redundantes: el cambio de tono ya separa. Se retiran ambos y queda una sola regla sobre la tabla, la de la cabecera, que el requisito `Compact header bar` exige expresamente.
+
+**Postura legal.** Lo que sostiene el aviso es que sea persistente, esté sobre los datos, sea legible y no se pueda ocultar — todo eso se mantiene. `slate-600` sobre `slate-50` da ~7:1 de contraste, holgadamente por encima del 4.5:1 que exige WCAG AA a este tamaño. Lo arriesgado sería moverlo al pie o meterlo tras un desplegable, y eso la spec ya lo prohíbe.
+
+### Decisión 10 — Se corrigen los defectos de accesibilidad heredados
+
+Auditar la maqueta destapó fallos de WCAG AA, uno introducido por este cambio y el resto preexistentes. Se arreglan todos aquí, aunque ensanche el alcance, porque el coste es de minutos y dejarlos documentados sin corregir solo garantiza que nadie vuelva.
+
+| | Antes | Después |
+|---|---|---|
+| Botón de Telegram (`sky-600`) | 4.1:1 | **5.93:1** (`sky-700`) |
+| Crédito de Reddit (`slate-400`) | 2.56:1 | **4.76:1** (`slate-500`) |
+| Control «Cookies» (`slate-400`) | 2.56:1 | **4.76:1** (`slate-500`) |
+| Área táctil de «Cookies» | 42×16 | **42×24** |
+| Área táctil de «Más información» | 103×20 | **103×28** |
+| Bloques fuera de landmark | 4 | **0** |
+
+El del botón era un defecto propio: `sky-600` con texto blanco no llega a 4.5:1 a 12px. `sky-700` sí.
+
+Los dos de `slate-400` importan más de lo que parece porque uno de ellos es **el control de retirada de consentimiento**. Un control de privacidad que la gente no puede leer es un control que no existe. Eso obliga a modificar el requisito `Consent can be changed or withdrawn`, que pedía literalmente *"small, low-contrast text"*: pasa a *"muted"* con umbral AA explícito. Discreto y ilegible no son sinónimos, y la spec los estaba confundiendo.
+
+Los landmarks se resuelven con elementos semánticos en vez de `div`: `<aside>` para las dos tiras, `<footer>` para la línea de cookies y `role="region"` con nombre accesible para el banner. Recuperar `<footer>` no revierte nada: `compact-spreadsheet-first-header` eliminó el *contenido* del pie (crédito de autor, enlace a GitHub), no prohibió el elemento.
+
+Se añade además un requisito `Accessible text and controls` en lugar de arreglar y olvidar, para que la auditoría quede como criterio verificable y no como anécdota de una conversación.
+
 ## Risks / Trade-offs
 
-- **+40px sobre el pliegue.** El escenario `Spreadsheet visible on a laptop viewport` (900px de alto) es el que este cambio puede romper. Es verificable y es el criterio de aceptación principal.
+- **+48px sobre el pliegue.** El escenario `Spreadsheet visible on a laptop viewport` (900px de alto) es el que este cambio puede romper. Es verificable y es el criterio de aceptación principal.
 - **Sube el listón de responsabilidad percibida.** La página pasa de "aquí tienes datos, verifícalos" a "yo te aviso". Mitigado convirtiendo el condicional del copy en requisito normativo, no en preferencia de estilo.
 - **Telegram sigue siendo audiencia alquilada.** No se exporta la lista de suscriptores y la plataforma puede cerrar el canal. El salto valioso que sí se captura es de "que recuerde volver" a "le suena el móvil". El día que se busque audiencia realmente propia, la conversión será Telegram → email, no web → email.
-- **Competencia visual con el disclaimer legal.** Mitigado por la Decisión 2, pero conviene revisarlo con ojos frescos tras implementarlo.
+- **Competencia visual con el disclaimer legal.** Detectada al revisar la maqueta y resuelta en la Decisión 9: el aviso pasa a tinte neutro y la tira de Telegram queda como único bloque con color.
 
 ## Open Questions
 

@@ -27,16 +27,31 @@
     <div class="max-w-4xl mx-auto w-full px-4 py-3">
       <h1 class="text-base sm:text-lg font-bold tracking-tight">Tracker de Precios de Suplementación</h1>
       <p class="mt-1 text-xs text-slate-500">
-        Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España<span class="text-slate-400"> · Con feedback de la comunidad de Reddit</span>
+        Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España<span class="text-slate-500"> · Con feedback de la comunidad de Reddit</span>
       </p>
     </div>
   </header>
 
-  <div class="w-full border-b border-amber-200 bg-amber-50 text-amber-900">
+  <aside aria-label="Aviso sobre la exactitud de los precios" class="w-full bg-slate-50 text-slate-600">
     <p class="max-w-4xl mx-auto w-full px-4 py-2 text-xs">
-      <span aria-hidden="true">⚠</span> Registro de precios no oficial y ajeno a las tiendas. Las cifras pueden estar desactualizadas; siempre prevalece el precio de la página de la tienda.
+      Registro de precios no oficial y ajeno a las tiendas. Las cifras pueden estar desactualizadas; siempre prevalece el precio de la página de la tienda.
     </p>
-  </div>
+  </aside>
+
+  <aside aria-label="Canal de Telegram del tracker" class="w-full bg-sky-50 text-sky-900">
+    <div class="max-w-4xl mx-auto w-full px-4 py-2 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs">
+      <p class="flex-1">
+        <span aria-hidden="true">🔔</span> <strong class="font-semibold">¿No quieres entrar cada día?</strong> El canal de Telegram de este tracker te avisa cuando detectamos que un producto toca su mínimo registrado. Nada más.
+      </p>
+      <a id="telegram-cta-link"
+         href="https://t.me/NutriChollos"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="shrink-0 self-start sm:self-auto rounded-lg bg-sky-700 px-3 py-2 font-medium text-white hover:bg-sky-800 transition-colors">
+        Unirme en Telegram<span class="sr-only"> (se abre en una ventana nueva)</span>
+      </a>
+    </div>
+  </aside>
 
   <main class="max-w-4xl mx-auto w-full px-4 pt-6 flex-1">
 
@@ -61,11 +76,11 @@
 
   </main>
 
-  <div class="w-full border-t border-slate-200 bg-white">
-    <p class="max-w-4xl mx-auto w-full px-4 py-2 text-xs text-slate-400">
-      <button id="cookie-settings" class="underline underline-offset-2 hover:text-slate-700 transition-colors">Cookies</button>
+  <footer class="w-full border-t border-slate-200 bg-white">
+    <p class="max-w-4xl mx-auto w-full px-4 py-2 text-xs text-slate-500">
+      <button id="cookie-settings" class="inline-block py-1 underline underline-offset-2 hover:text-slate-900 transition-colors">Cookies</button>
     </p>
-  </div>
+  </footer>
 
   <dialog id="cookie-policy-dialog" class="rounded-xl p-0 w-[min(42rem,92vw)] backdrop:bg-slate-900/60">
     <div class="max-h-[85vh] overflow-y-auto p-6 text-sm text-slate-600 space-y-3 leading-relaxed">
@@ -106,11 +121,11 @@
     </div>
   </dialog>
 
-  <div id="cookie-consent-banner" class="fixed bottom-0 inset-x-0 hidden bg-slate-900 text-slate-100 px-4 py-4 shadow-lg">
+  <div id="cookie-consent-banner" role="region" aria-label="Consentimiento de cookies" class="fixed bottom-0 inset-x-0 hidden bg-slate-900 text-slate-100 px-4 py-4 shadow-lg">
     <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
       <p class="text-sm flex-1">
         Usamos cookies de analítica para entender el uso de la página. Puedes aceptarlas o rechazarlas.
-        <button id="cookie-policy-open" class="underline underline-offset-2 hover:text-white transition-colors">Más información</button>
+        <button id="cookie-policy-open" class="inline-block py-1 underline underline-offset-2 hover:text-white transition-colors">Más información</button>
       </p>
       <div class="flex gap-2 shrink-0">
         <button id="cookie-reject" class="rounded-lg px-4 py-2 text-sm font-medium bg-slate-700 hover:bg-slate-600 transition-colors">Rechazar</button>
@@ -142,7 +157,13 @@
       var settingsBtn = document.getElementById('cookie-settings');
       var policyDialog = document.getElementById('cookie-policy-dialog');
       var policyOpenBtn = document.getElementById('cookie-policy-open');
+      var telegramLink = document.getElementById('telegram-cta-link');
       var gtagLoaded = false;
+
+      function gtag() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(arguments);
+      }
 
       function loadGtag() {
         if (gtagLoaded) return;
@@ -153,8 +174,6 @@
         script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
         document.head.appendChild(script);
 
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { window.dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', GA_MEASUREMENT_ID);
       }
@@ -195,6 +214,11 @@
 
       policyOpenBtn.addEventListener('click', function () {
         policyDialog.showModal();
+      });
+
+      telegramLink.addEventListener('click', function () {
+        if (!gtagLoaded) return;
+        gtag('event', 'join_telegram');
       });
     })();
   </script>
