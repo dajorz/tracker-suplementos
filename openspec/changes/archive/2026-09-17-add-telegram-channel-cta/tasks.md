@@ -31,7 +31,7 @@
 
 - [x] 5.1 Añadir un evento GA4 `join_telegram` en el clic del botón, reutilizando la comprobación de consentimiento ya existente en `consentGate()`.
 - [x] 5.2 Verificar que con consentimiento rechazado o sin responder el clic no genera ninguna petición a `googletagmanager.com`, y que el enlace sigue abriendo Telegram igualmente.
-- [ ] 5.3 Anotar la fecha de puesta en producción para poder comparar el delta de suscriptores, y no modificar posición ni copy durante 3–4 semanas.
+- [x] 5.3 Anotar la fecha de puesta en producción para poder comparar el delta de suscriptores, y no modificar posición ni copy durante 3–4 semanas. → **2026-09-17** (ver Decisión 7).
 
 ## 6. Accesibilidad
 

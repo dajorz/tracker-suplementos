@@ -100,6 +100,8 @@ Los enlaces de canal `t.me/<nombre>` no admiten parámetros de atribución; eso 
 
 Consecuencia operativa: fijar posición y copy, y no tocarlos durante 3–4 semanas. Con una señal tan ruidosa, iterar cada dos días no enseña nada.
 
+**Línea base: 2026-09-17.** Fecha de referencia para comparar el delta de suscriptores del canal. Antes del 2026-10-15 no hay datos suficientes para concluir nada sobre la conversión.
+
 ### Decisión 8 — Tinte sky claro, subordinado al ámbar
 
 La tira usa `bg-sky-50` y el botón sólido en `sky-600`. Sin `border-b`: el cambio de tono contra el aviso (`slate-50`) y contra el área de contenido ya marca los bordes, y una regla más solo añade ruido a una zona que acumula tres bandas en 177px.
