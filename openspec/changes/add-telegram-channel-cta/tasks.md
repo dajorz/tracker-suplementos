@@ -6,7 +6,7 @@
 
 ## 2. Copy
 
-- [x] 2.1 Redactar el texto como: «🔔 ¿No quieres entrar cada día? El canal de Telegram de este tracker te avisa cuando detectamos que un producto toca su mínimo registrado. Nada más.»
+- [x] 2.1 Redactar el texto como: «🔔 ¿No quieres entrar cada día? El canal de Telegram de este tracker te avisa cuando el bot detecta que un producto toca su mínimo registrado. Nada más.»
 - [x] 2.2 Etiquetar el botón «Unirme en Telegram» (no «NutriChollos»).
 - [x] 2.3 Comprobar que el copy no contiene «mínimo histórico» sin matizar, ninguna cifra de frecuencia de mensajes, ni ninguna promesa de exhaustividad.
 

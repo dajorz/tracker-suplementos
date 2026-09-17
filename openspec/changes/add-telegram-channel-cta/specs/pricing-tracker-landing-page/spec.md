@@ -20,7 +20,7 @@ All page text SHALL meet a contrast ratio of at least 4.5:1 against its backgrou
 - **THEN** its accessible name states that a new window will open
 
 ### Requirement: Telegram channel call to action
-The page SHALL display a full-width slim strip, no taller than two text lines, positioned between the price accuracy disclaimer and the embedded spreadsheet, linking to the project's Telegram channel at `https://t.me/NutriChollos`. The strip SHALL identify the channel as belonging to this tracker, SHALL describe the alerts as triggered when a product reaches its recorded minimum rather than an all-time historical minimum, SHALL word the detection conditionally, and SHALL NOT promise any message frequency. The strip SHALL carry the only actionable control in the region above the spreadsheet, so that it is distinguishable from the disclaimer by affordance and not only by colour. The link SHALL open in a new browsing context with `rel="noopener noreferrer"`, SHALL set no cookie, and SHALL remain fully usable without consent. Any click measurement SHALL reuse the existing consent gate.
+The page SHALL display a full-width slim strip, no taller than two text lines on desktop viewports, positioned between the price accuracy disclaimer and the embedded spreadsheet, linking to the project's Telegram channel at `https://t.me/NutriChollos`. The strip SHALL identify the channel as belonging to this tracker, SHALL describe the alerts as triggered when a product reaches its recorded minimum rather than an all-time historical minimum, SHALL word the detection conditionally, and SHALL NOT promise any message frequency. The strip SHALL carry the only actionable control in the region above the spreadsheet, so that it is distinguishable from the disclaimer by affordance and not only by colour. The link SHALL open in a new browsing context with `rel="noopener noreferrer"`, SHALL set no cookie, and SHALL remain fully usable without consent. Any click measurement SHALL reuse the existing consent gate.
 
 #### Scenario: Channel is discoverable without scrolling
 - **WHEN** a visitor opens the page at a viewport 900px tall
@@ -32,7 +32,7 @@ The page SHALL display a full-width slim strip, no taller than two text lines, p
 
 #### Scenario: Alert promise is bounded
 - **WHEN** the strip's copy is read
-- **THEN** it refers to a recorded minimum rather than an unqualified "mínimo histórico", states the detection conditionally (e.g. "cuando detectamos"), and names no message frequency or cadence
+- **THEN** it refers to a recorded minimum rather than an unqualified "mínimo histórico", attributes the detection to the bot so no exhaustiveness is promised, and names no message frequency or cadence
 
 #### Scenario: Only the Telegram strip is actionable above the spreadsheet
 - **WHEN** the page region above the embedded spreadsheet is inspected
@@ -80,7 +80,7 @@ The page SHALL display a persistent control that reopens the consent banner so t
 - **THEN** the control occupies a single line of small, muted text below `<main>`, meets 4.5:1 contrast, offers a hit area of at least 24×24 CSS pixels, and does not push the embedded spreadsheet below the fold
 
 ### Requirement: Spreadsheet leads the main content
-The embedded spreadsheet SHALL be the first element of the main content, immediately below the header and the page-level notice strips, with no call-to-action card or section preceding it. A single full-width slim strip, no taller than two text lines, linking to the project's Telegram channel is the only call to action permitted above the spreadsheet.
+The embedded spreadsheet SHALL be the first element of the main content, immediately below the header and the page-level notice strips, with no call-to-action card or section preceding it. A single full-width slim strip, no taller than two text lines on desktop viewports, linking to the project's Telegram channel is the only call to action permitted above the spreadsheet.
 
 #### Scenario: Spreadsheet precedes all other main content
 - **WHEN** the page HTML is inspected

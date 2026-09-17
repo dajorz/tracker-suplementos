@@ -15,7 +15,7 @@ Hay además una restricción física que condiciona la solución: el iframe de G
 - Corregir los defectos de accesibilidad que destapó la auditoría de la maqueta: contraste del crédito de Reddit y del control «Cookies» (2.56:1 → 4.76:1), área táctil de «Cookies» y «Más información» (16px y 20px → 24px y 28px), envolver los bloques huérfanos en landmarks (`aside`, `footer`, `role="region"`) y anunciar la apertura en pestaña nueva del enlace a Telegram.
 - Relajar el requisito `Spreadsheet leads the main content` para admitir esa única tira de una línea, manteniendo la prohibición de tarjetas o secciones CTA antes de la tabla.
 - Acotar la prohibición de alertas del requisito `Product suggestion call to action` a esa sección concreta, en lugar de a toda la página. La sección de sugerencias sigue sin formulario, sin campo de email y sin ofrecer alertas.
-- El copy cose las dos marcas ("el canal de Telegram de este tracker") en lugar de renombrar nada, habla de "mínimo registrado" en lugar de "mínimo histórico", redacta la detección en condicional ("cuando detectamos") y no promete ninguna frecuencia de mensajes.
+- El copy cose las dos marcas ("el canal de Telegram de este tracker") en lugar de renombrar nada, habla de "mínimo registrado" en lugar de "mínimo histórico", atribuye la detección al bot y no promete ninguna frecuencia de mensajes.
 - Añadir un evento GA4 `join_telegram` en el clic del botón, envuelto en la comprobación de consentimiento ya existente, de modo que no dispara para quien rechazó o no ha respondido.
 - No se toca el iframe, ni el flujo de consentimiento, ni la política de cookies, ni el CTA `mailto:` ni el ensamblado anti-scraping de la dirección.
 
