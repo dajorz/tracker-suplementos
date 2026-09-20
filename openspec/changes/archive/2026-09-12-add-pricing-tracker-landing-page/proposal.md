@@ -26,4 +26,4 @@ The "tracker-suplementos" repo currently has no public-facing page. A Google She
 - External dependencies: Tailwind CSS CDN script, Google Analytics `gtag.js` CDN script (loaded only after consent), published Google Sheets URL (provided by user).
 - No backend, build tooling, form service, or server-side code introduced.
 - Accepted trade-off: `mailto:` builds no mailing list and converts worse than a hosted form. Suggestions arrive as inbound emails the author triages manually. Price-drop alerts are explicitly out of scope for this change.
-- Follow-up action required from the user: create a GA4 property and replace the `G-XXXXXXXXXX` placeholder. The contact address (`virtualtoolsapps@gmail.com`) and canonical URL (`https://dajorz.github.io/tracker-suplementos/`) are confirmed.
+- Follow-up action required from the user: create a GA4 property and replace the `G-XXXXXXXXXX` placeholder. The contact address (deliberately not written out here; it is assembled at runtime from fragments in `index.html`) and canonical URL (`https://dajorz.github.io/tracker-suplementos/`) are confirmed.

@@ -3,21 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tracker de Precios de Suplementación</title>
+  <title>Precios de creatina y proteína en España | Tracker diario</title>
 
-  <meta name="description" content="Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España.">
+  <meta name="description" content="Precios diarios de creatina y proteína en HSN, MyProtein, Prozis y Zumub. Mínimo registrado y €/100 g de proteína para comparar sin marketing.">
   <link rel="canonical" href="https://dajorz.github.io/tracker-suplementos/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
 
-  <meta property="og:title" content="Tracker de Precios de Suplementación">
-  <meta property="og:description" content="Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España.">
+  <!-- Removing this tag unverifies the Search Console property for this site. -->
+  <meta name="google-site-verification" content="cSgx-fDLA4YAdY34hbvbbIxUvtyO9mZqllxEOzqAwjQ" />
+
+  <meta property="og:title" content="Precios de creatina y proteína en España | Tracker diario">
+  <meta property="og:description" content="Precios diarios de creatina y proteína en HSN, MyProtein, Prozis y Zumub. Mínimo registrado y €/100 g de proteína para comparar sin marketing.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dajorz.github.io/tracker-suplementos/">
   <meta property="og:locale" content="es_ES">
+  <meta property="og:image" content="https://dajorz.github.io/tracker-suplementos/og-image-v1.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Tracker de Precios de Suplementación: precios de creatina y proteína en HSN, MyProtein, Prozis y Zumub">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Tracker de Precios de Suplementación">
-  <meta name="twitter:description" content="Proyecto independiente de seguimiento de precios reales y disponibilidad de stock de creatina y proteína en España.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Precios de creatina y proteína en España | Tracker diario">
+  <meta name="twitter:description" content="Precios diarios de creatina y proteína en HSN, MyProtein, Prozis y Zumub. Mínimo registrado y €/100 g de proteína para comparar sin marketing.">
+
+  <!-- Dataset + Person structured data: describes the price record, not the individual products (those live in a third-party iframe). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Dataset",
+        "name": "Tracker de Precios de Suplementación",
+        "description": "Precios diarios de creatina y proteína en HSN, MyProtein, Prozis y Zumub, con mínimo registrado y €/100 g de proteína para comparar formatos.",
+        "url": "https://dajorz.github.io/tracker-suplementos/",
+        "inLanguage": "es-ES",
+        "isAccessibleForFree": true,
+        "keywords": ["creatina", "proteína", "whey", "precios", "España"],
+        "temporalCoverage": "2026-08-30/..",
+        "creator": { "@id": "https://dajorz.github.io/tracker-suplementos/#dajorz" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://dajorz.github.io/tracker-suplementos/#dajorz",
+        "name": "dajorz"
+      }
+    ]
+  }
+  </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -66,6 +98,48 @@
       <a id="suggest-product-link" href="#" class="mt-4 inline-block rounded-lg bg-slate-900 px-5 py-2.5 text-white font-medium hover:bg-slate-700 transition-colors">
         Proponer producto
       </a>
+    </section>
+
+    <section class="mt-8 mb-12 rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200 text-left text-slate-600 leading-relaxed">
+      <h2 class="text-xl font-semibold text-slate-900">Cómo funciona este tracker</h2>
+
+      <h3 class="mt-4 font-semibold text-slate-800">Qué tiendas y productos sigue</h3>
+      <p class="mt-1">
+        El tracker sigue precios en HSN, MyProtein, Prozis y Zumub. Las categorías cubiertas son creatina monohidrato
+        (incluida Creapure®), whey concentrada, whey isolate, clear whey, caseína y proteína de soja aislada.
+      </p>
+
+      <h3 class="mt-4 font-semibold text-slate-800">Qué es el €/100 g de proteína</h3>
+      <p class="mt-1">
+        Cada producto tiene un formato y un contenido proteico distintos, así que comparar el precio del bote no dice
+        gran cosa. El €/100 g de proteína normaliza el precio según el contenido proteico real, para poder comparar
+        formatos distintos en igualdad de condiciones.
+      </p>
+
+      <h3 class="mt-4 font-semibold text-slate-800">Qué es el «mínimo registrado»</h3>
+      <p class="mt-1">
+        Es el precio más bajo observado desde que se sigue ese producto, no un PVP de referencia ni un precio tachado
+        por la propia tienda. Se calcula solo a partir de precios reales capturados por el tracker.
+      </p>
+
+      <h3 class="mt-4 font-semibold text-slate-800">Con qué frecuencia se actualiza</h3>
+      <p class="mt-1">
+        La hoja se refresca a diario.
+      </p>
+
+      <h3 class="mt-4 font-semibold text-slate-800">Quién está detrás</h3>
+      <p class="mt-1">
+        Este tracker lo mantiene <strong class="font-semibold text-slate-800">dajorz</strong>, como proyecto
+        independiente y ajeno a las tiendas que sigue.
+      </p>
+
+      <h3 class="mt-4 font-semibold text-slate-800">Relación comercial</h3>
+      <p class="mt-1">
+        Hoy no hay ningún enlace de afiliación ni compensación de ninguna de las tiendas seguidas, ni en esta página
+        ni en el canal de Telegram al que enlaza. Al margen de eso, el orden de la tabla y el mínimo registrado salen
+        solo de precios observados y no los influye ningún acuerdo comercial, sea cual sea la forma en que este
+        proyecto se sostenga en el futuro.
+      </p>
     </section>
 
   </main>

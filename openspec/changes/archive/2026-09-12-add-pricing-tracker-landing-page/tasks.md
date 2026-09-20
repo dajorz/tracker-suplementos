@@ -14,7 +14,7 @@
 
 - [x] 3.1 Add CTA section with heading "¿Echas en falta algún producto?" and subtext "Escríbeme y lo añado al tracker — o cuéntame cualquier sugerencia sobre la herramienta."
 - [x] 3.2 Add an `<a>` styled as a button labeled "Proponer producto" — no form element and no email input
-- [x] 3.3 Assemble the `mailto:` href in JavaScript on load, storing the address as separate fragments (`virtualtoolsapps` + `gmail.com`) with subject `Sugerencia para el tracker`, so it never appears literally in the served HTML
+- [x] 3.3 Assemble the `mailto:` href in JavaScript on load, storing the address as separate user and domain fragments (never written out as a literal anywhere in this repository) with subject `Sugerencia para el tracker`, so it never appears literally in the served HTML
 - [x] 3.4 Add a code comment explaining that the fragments are split deliberately for anti-scraping and must stay split
 
 ## 4. Google Sheet Embed
@@ -38,6 +38,6 @@
 - [x] 7.1 Manually check page in a mobile-width and desktop-width viewport for layout correctness
 - [x] 7.2 Confirm iframe loads the published sheet correctly in a browser
 - [x] 7.3 Verify no `_ga` cookie and no request to `googletagmanager.com` occurs before accepting consent, and that both appear after accepting
-- [x] 7.4 Verify the "Proponer producto" button opens a mail client addressed to `virtualtoolsapps@gmail.com` with the prefilled subject, and that the address does not appear in the page source
+- [x] 7.4 Verify the "Proponer producto" button opens a mail client addressed to the site owner with the prefilled subject, and that the address does not appear in the page source
 - [x] 7.5 Add brief GitHub Pages enablement note (Settings → Pages → deploy from root of default branch) to repo README or PR description
 - [x] 7.6 Guide the user through creating a real GA4 property and replacing the placeholder measurement ID (follow-up, tracked separately from this change's completion)
