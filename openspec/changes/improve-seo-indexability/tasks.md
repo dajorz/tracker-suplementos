@@ -52,19 +52,19 @@
 - [x] 4.3 Declarar `temporalCoverage` como `2026-08-30/..` y confirmar que **no** se declara `dateModified`
 - [x] 4.4 Confirmar que el marcado no contiene ningún nodo `Product`, `Offer`, `AggregateOffer` ni `ItemList`
 - [x] 4.5 Confirmar que el marcado no contiene ningún `FAQPage` ni `SearchAction`
-- [ ] 4.6 Validar el JSON-LD con la herramienta de prueba de resultados enriquecidos de Google y con el validador de schema.org, y dejar constancia de que pasa sin errores
+- [x] 4.6 Validar el JSON-LD con la herramienta de prueba de resultados enriquecidos de Google y con el validador de schema.org, y dejar constancia de que pasa sin errores
 
 ## 5. Directivas de rastreo
 
 - [x] 5.1 Crear `robots.txt` en la raíz permitiendo todos los agentes y con la línea `Sitemap: https://dajorz.github.io/tracker-suplementos/sitemap.xml`
 - [x] 5.2 Crear `sitemap.xml` en la raíz listando únicamente la URL canónica, sin elemento `<lastmod>`
-- [ ] 5.3 Tras desplegar, confirmar que ambos ficheros devuelven HTTP 200 con su contenido y no el HTML de la página
+- [x] 5.3 Tras desplegar, confirmar que ambos ficheros devuelven HTTP 200 con su contenido y no el HTML de la página
 
 ## 6. Instrumentación
 
-- [ ] 6.1 Crear en Search Console una propiedad de **prefijo de URL** sobre `https://dajorz.github.io/tracker-suplementos/` (la propiedad de dominio no es viable: requiere control DNS sobre `github.io`)
+- [x] 6.1 Crear en Search Console una propiedad de **prefijo de URL** sobre `https://dajorz.github.io/tracker-suplementos/` (la propiedad de dominio no es viable: requiere control DNS sobre `github.io`)
 - [x] 6.2 Añadir la meta-etiqueta `google-site-verification` al `<head>`, precedida de un comentario de una línea que explique que borrarla desverifica la propiedad
-- [ ] 6.3 Completar la verificación en Search Console y enviar el sitemap
+- [x] 6.3 Completar la verificación en Search Console y enviar el sitemap
 - [x] 6.4 Confirmar que la etiqueta de verificación no emite ninguna petición, no escribe cookies ni almacenamiento, y queda fuera de la puerta de consentimiento
 - [ ] 6.5 Registrar la cifra de partida de impresiones y clics orgánicos, para poder evaluar este cambio dentro de unos meses con datos en lugar de intuición
 
@@ -74,28 +74,28 @@
 - [ ] 7.2 Buscar en el HTML servido, fuera del iframe, `monohidrato`, `Creapure`, `whey`, `isolate` y `caseína`, y confirmar que todas aparecen
 - [ ] 7.3 Contar el texto indexable de la página y confirmar que la política de cookies ha dejado de ser su componente mayoritario
 - [ ] 7.4 Listar los encabezados en orden de documento y confirmar que existe un `<h2>` sobre la materia del tracker, y no solo el CTA y la política de cookies
-- [ ] 7.5 Renderizar la página con JavaScript desactivado y confirmar que la sección de metodología, el JSON-LD y todos los metadatos siguen presentes
+- [x] 7.5 Renderizar la página con JavaScript desactivado y confirmar que la sección de metodología, el JSON-LD y todos los metadatos siguen presentes
 
 ## 8. Verificación de presentación social
 
-- [ ] 8.1 Validar la URL en un depurador de tarjetas sociales y confirmar que se renderiza una tarjeta grande con imagen
-- [ ] 8.2 Comprobar la vista previa real en Telegram **antes** de anunciar nada en el canal, dado que su caché es difícil de invalidar
-- [ ] 8.3 Confirmar que el texto de la tarjeta se lee en la miniatura que muestra Telegram en móvil
+- [x] 8.1 Validar la URL en un depurador de tarjetas sociales y confirmar que se renderiza una tarjeta grande con imagen
+- [x] 8.2 Comprobar la vista previa real en Telegram **antes** de anunciar nada en el canal, dado que su caché es difícil de invalidar
+- [x] 8.3 Confirmar que el texto de la tarjeta se lee en la miniatura que muestra Telegram en móvil
 
 ## 9. Verificación de no regresión
 
-- [ ] 9.1 Medir la distancia desde el top del viewport hasta el borde superior del iframe a 375px de ancho y confirmar que sigue siendo de 220px o menos
-- [ ] 9.2 Confirmar que no se ha añadido absolutamente nada entre `</header>` y la sección del iframe
-- [ ] 9.3 Confirmar en un viewport de 900px de alto que el borde superior del iframe sigue visible sin hacer scroll
-- [ ] 9.4 Confirmar que el iframe conserva su `src`, su altura `80vh` con mínimo de 600px y su `loading="lazy"`
-- [ ] 9.5 Confirmar que el flujo de consentimiento sigue intacto: banner en primera visita, aceptar inyecta `gtag.js` una sola vez, rechazar borra las cookies `_ga` y recarga
-- [ ] 9.6 Confirmar que «Cookies» en el pie sigue reabriendo el banner y que «Más información» sigue abriendo el diálogo de política
-- [ ] 9.7 Confirmar que el CTA `mailto:` se sigue ensamblando por JavaScript y que la dirección no aparece literal en el HTML servido
-- [ ] 9.8 Confirmar que el clic en Telegram sigue emitiendo `join_telegram` solo con consentimiento aceptado
-- [ ] 9.9 Medir el contraste de todo el texto nuevo de la sección de metodología contra su fondo y confirmar que alcanza 4.5:1
-- [ ] 9.10 Confirmar que el favicon sigue siendo un data URI y que no se ha añadido ningún fichero binario de favicon
-- [ ] 9.11 Confirmar que sigue sin existir ningún script de build, ningún `package.json` y ninguna hoja de estilos propia
-- [ ] 9.12 Releer la declaración comercial y confirmar que no contiene ningún verbo en futuro ni ninguna palabra que prometa permanencia
+- [x] 9.1 Medir la distancia desde el top del viewport hasta el borde superior del iframe a 375px de ancho y confirmar que sigue siendo de 220px o menos
+- [x] 9.2 Confirmar que no se ha añadido absolutamente nada entre `</header>` y la sección del iframe
+- [x] 9.3 Confirmar en un viewport de 900px de alto que el borde superior del iframe sigue visible sin hacer scroll
+- [x] 9.4 Confirmar que el iframe conserva su `src`, su altura `80vh` con mínimo de 600px y su `loading="lazy"`
+- [x] 9.5 Confirmar que el flujo de consentimiento sigue intacto: banner en primera visita, aceptar inyecta `gtag.js` una sola vez, rechazar borra las cookies `_ga` y recarga
+- [x] 9.6 Confirmar que «Cookies» en el pie sigue reabriendo el banner y que «Más información» sigue abriendo el diálogo de política
+- [x] 9.7 Confirmar que el CTA `mailto:` se sigue ensamblando por JavaScript y que la dirección no aparece literal en el HTML servido
+- [x] 9.8 Confirmar que el clic en Telegram sigue emitiendo `join_telegram` solo con consentimiento aceptado
+- [x] 9.9 Medir el contraste de todo el texto nuevo de la sección de metodología contra su fondo y confirmar que alcanza 4.5:1
+- [x] 9.10 Confirmar que el favicon sigue siendo un data URI y que no se ha añadido ningún fichero binario de favicon
+- [x] 9.11 Confirmar que sigue sin existir ningún script de build, ningún `package.json` y ninguna hoja de estilos propia
+- [x] 9.12 Releer la declaración comercial y confirmar que no contiene ningún verbo en futuro ni ninguna palabra que prometa permanencia
 
 ## 10. Higiene del repositorio público
 
