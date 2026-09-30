@@ -70,10 +70,10 @@
 
 ## 7. Verificación de indexabilidad
 
-- [ ] 7.1 Buscar en el HTML servido, fuera del iframe, las cadenas `HSN`, `MyProtein`, `Prozis` y `Zumub`, y confirmar que las cuatro aparecen
-- [ ] 7.2 Buscar en el HTML servido, fuera del iframe, `monohidrato`, `Creapure`, `whey`, `isolate` y `caseína`, y confirmar que todas aparecen
-- [ ] 7.3 Contar el texto indexable de la página y confirmar que la política de cookies ha dejado de ser su componente mayoritario
-- [ ] 7.4 Listar los encabezados en orden de documento y confirmar que existe un `<h2>` sobre la materia del tracker, y no solo el CTA y la política de cookies
+- [x] 7.1 Buscar en el HTML servido, fuera del iframe, las cadenas `HSN`, `MyProtein`, `Prozis` y `Zumub`, y confirmar que las cuatro aparecen
+- [x] 7.2 Buscar en el HTML servido, fuera del iframe, `monohidrato`, `Creapure`, `whey`, `isolate` y `caseína`, y confirmar que todas aparecen
+- [x] 7.3 Contar el texto indexable de la página y confirmar que la política de cookies ha dejado de ser su componente mayoritario
+- [x] 7.4 Listar los encabezados en orden de documento y confirmar que existe un `<h2>` sobre la materia del tracker, y no solo el CTA y la política de cookies
 - [x] 7.5 Renderizar la página con JavaScript desactivado y confirmar que la sección de metodología, el JSON-LD y todos los metadatos siguen presentes
 
 ## 8. Verificación de presentación social
