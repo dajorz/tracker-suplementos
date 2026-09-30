@@ -44,4 +44,4 @@
 
 ## 8. Cierre
 
-- [ ] 8.1 Archivar este change solo después de que `improve-seo-indexability` esté archivado, porque es el que admite ficheros hermanos en la raíz en la spec principal
+- [x] 8.1 Archivar este change solo después de que `improve-seo-indexability` esté archivado, porque es el que admite ficheros hermanos en la raíz en la spec principal
