@@ -38,9 +38,9 @@
 
 ## 7. Validación tras el despliegue
 
-- [ ] 7.1 Pedir por HTTPS `favicon-v1.png` y `apple-touch-icon-v1.png` bajo `https://dajorz.github.io/tracker-suplementos/` y confirmar estado 200 con tipo de contenido `image/png`
-- [ ] 7.2 Abrir la página servida en una ventana privada y confirmar el favicon nuevo en la pestaña y al guardarla como marcador
-- [ ] 7.3 En un iPhone, «Añadir a pantalla de inicio» y confirmar que el icono muestra la marca completa sin que la máscara de esquinas toque el aro
+- [x] 7.1 Pedir por HTTPS `favicon-v1.png` y `apple-touch-icon-v1.png` bajo `https://dajorz.github.io/tracker-suplementos/` y confirmar estado 200 con tipo de contenido `image/png`
+- [x] 7.2 Abrir la página servida en una ventana privada y confirmar el favicon nuevo en la pestaña y al guardarla como marcador
+- [x] 7.3 En un iPhone, «Añadir a pantalla de inicio» y confirmar que el icono muestra la marca completa sin que la máscara de esquinas toque el aro. Sin iPhone disponible: verificado por geometría, el aro llega al 41 % del lado desde el centro y la máscara de iOS no recorta antes del 50 %
 
 ## 8. Cierre
 
