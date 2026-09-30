@@ -66,7 +66,7 @@
 - [x] 6.2 Añadir la meta-etiqueta `google-site-verification` al `<head>`, precedida de un comentario de una línea que explique que borrarla desverifica la propiedad
 - [x] 6.3 Completar la verificación en Search Console y enviar el sitemap
 - [x] 6.4 Confirmar que la etiqueta de verificación no emite ninguna petición, no escribe cookies ni almacenamiento, y queda fuera de la puerta de consentimiento
-- [ ] 6.5 Registrar la cifra de partida de impresiones y clics orgánicos, para poder evaluar este cambio dentro de unos meses con datos en lugar de intuición
+- [x] 6.5 Registrar la cifra de partida de impresiones y clics orgánicos, para poder evaluar este cambio dentro de unos meses con datos en lugar de intuición. Línea base a 2026-09-30 (Search Console, propiedad de prefijo de URL): 0 clics en búsqueda web entre el 19 y el 27/9/26, serie plana a 0. La vista general no muestra impresiones y la indexación aún se estaba procesando, así que las impresiones quedan por leer en Rendimiento cuando haya datos
 
 ## 7. Verificación de indexabilidad
 
