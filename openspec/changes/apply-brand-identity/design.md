@@ -76,21 +76,21 @@ Implementación: un `tailwind.config` en línea, justo después del script del C
 ```
 Escritorio
 ┌────────────────────────────────────────────────────────────────────┐
-│ 🔔 El bot de este tracker te avisa por Telegram si detecta…  (Unirme →) │
+│ 🔔 El bot de este tracker te avisa por Telegram si detecta…  (✈ Unirme) │
 └━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┘
    toda la franja es el <a>; la pastilla es un <span>, no un control aparte
 
 Móvil
 ┌───────────────────────────────┐
 │ 🔔 El bot de este       ╭─────────╮
-│ tracker te avisa por    │Unirme → │  44 px
+│ tracker te avisa por    │✈ Unirme │  44 px
 │ Telegram si detecta…    ╰─────────╯
 └━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┘
 ```
 
 - **Toda la franja es el enlace** (`<a id="telegram-cta-link">`), en todos los tamaños. Se descartó tener dos enlaces que se alternan según el ancho (T2 en móvil, T3 en escritorio): duplica marcado y crea dos sitios donde medir el clic, sin ninguna diferencia visual. Con un único enlace, la zona pulsable en móvil pasa de 160×44 a unos 360×71 px.
-- **La pastilla «Unirme →» es un `<span>`**, no un botón dentro del enlace: meter un control interactivo dentro de otro no es HTML válido. Es navy con texto lima. En móvil mide al menos 44 px de alto, para que se lea como botón aunque toda la franja responda al toque. La flecha va con `aria-hidden`. El aviso «(se abre en una ventana nueva)» sigue en `sr-only`, como pide el requisito de accesibilidad.
-- **Sin icono de avión:** el mockup T2 lo llevaba. Se quita porque la flecha ya indica que el enlace lleva a otro sitio, y así se evita un glifo que recuerda al logo de Telegram, una marca ajena.
+- **La pastilla «✈ Unirme» es un `<span>`**, no un botón dentro del enlace: meter un control interactivo dentro de otro no es HTML válido. Es navy con texto lima. En móvil mide al menos 44 px de alto, para que se lea como botón aunque toda la franja responda al toque. El icono va con `aria-hidden`. El aviso «(se abre en una ventana nueva)» sigue en `sr-only`, como pide el requisito de accesibilidad.
+- **Icono de avión de papel en lugar de flecha:** es la pastilla del mockup T2, que el propietario prefirió tras ver la implementación con «Unirme →». El avión dice «Telegram» antes de leer el texto. Es un glifo SVG en línea, dibujado aquí, y no el logotipo oficial de Telegram (avión dentro de un círculo azul): no se copia ningún recurso de marca ajeno, y hereda el lima de la pastilla con `currentColor`.
 - **Fondo blanco con una línea lima de 3 px debajo.** Es la misma firma visual de la cabecera de la tabla (navy con línea lima), así que la franja sirve de puente entre la página y la hoja. Al pasar el ratón, el fondo pasa a `slate-50` y la pastilla a `brand.navy-hover`. Lleva un anillo de foco visible para la navegación con teclado.
 
 ### Decisión 5 — El texto de Telegram se acorta, sin perder garantías
@@ -129,6 +129,7 @@ La forma de pastilla (`rounded-full`) es la misma para todos los botones de marc
 - **[Toques accidentales]** Una franja entera pulsable recoge toques de quien solo intenta hacer scroll. → Riesgo bajo: la franja mide ~71 px y está por encima de la tabla, no encima. Si `join_telegram` se dispara de forma anómala, se puede limitar la zona pulsable a la pastilla sin cambiar el aspecto.
 - **[Configuración del CDN y parpadeo]** El `tailwind.config` en línea debe ir justo después del script del CDN. Si no, la primera pintura sale sin los colores de marca. → Una tarea específica comprueba el orden.
 - **[El navy de la tabla no es exactamente `#051322`]** La fila de cabecera la colorea el propietario en Sheets. → Se comprueba el color al verificar. Si difiere poco, se ignora; si se nota, se ajusta en la hoja, no en la página.
+  **Medido el 2026-10-06** en el HTML publicado: la cabecera de la tabla usa `#0A192F` (marca: `#051322`) y su línea inferior `#8EE339` (marca: `#98F13E`). Ambos están en el mismo tono y solo varía ligeramente la luminosidad; a simple vista no se distinguen de la franja de la página. No se toca la página. Si se quiere la coincidencia exacta, se cambian los dos colores en la hoja.
 - **[Se pierde el gancho]** Sin «¿No quieres entrar cada día?», la franja engancha menos. → Se acepta. Con el nuevo punto de corte de la Decisión 7, una caída de conversión se puede atribuir a este cambio.
 
 ## Open Questions

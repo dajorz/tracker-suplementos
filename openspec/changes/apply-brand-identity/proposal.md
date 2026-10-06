@@ -9,7 +9,7 @@ El botón de Telegram es lo que peor queda. En el móvil es un bloque de 160×44
 - **La cabecera incorpora el logo.** Es el robot circular, reutilizando el `apple-touch-icon-v1.png` que ya existe, sin añadir imágenes nuevas. El título pasa a navy.
 - **La franja de Telegram se rediseña:**
   - En todos los tamaños, la franja entera es un único enlace.
-  - El botón azul se sustituye por una pastilla navy con texto lima. En escritorio es un indicador visual «Unirme →». En móvil mide 44 px de alto y se coloca al lado del texto, no debajo.
+  - El botón azul se sustituye por una pastilla navy con texto lima. Lleva un icono de avión de papel y el texto «Unirme». En móvil mide 44 px de alto y se coloca al lado del texto, no debajo.
   - El fondo deja de ser azul cielo y pasa a blanco. Debajo lleva una línea lima, la misma que separa la cabecera de la tabla en la hoja publicada.
   - El texto se acorta a una frase. Se mantienen las mismas garantías: que el canal es de este tracker, que avisa del mínimo registrado, que la detección la hace el bot, el «Nada más.» y que no promete ninguna frecuencia. Se elimina la pregunta inicial «¿No quieres entrar cada día?».
 - **La paleta de la página pasa a la de la marca, manteniendo el fondo claro:**
