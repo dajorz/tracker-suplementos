@@ -36,4 +36,4 @@
 
 ## 6. Medición
 
-- [ ] 6.1 Tras desplegar, anotar la fecha de despliegue en la Decisión 7 de `design.md` como nuevo punto de corte para comparar la conversión de Telegram
+- [x] 6.1 Tras desplegar, anotar la fecha de despliegue en la Decisión 7 de `design.md` como nuevo punto de corte para comparar la conversión de Telegram

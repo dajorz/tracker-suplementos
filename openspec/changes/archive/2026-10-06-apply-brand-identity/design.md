@@ -124,6 +124,8 @@ La forma de pastilla (`rounded-full`) es la misma para todos los botones de marc
 
 `join_telegram` sigue en el mismo `id` y detrás del mismo control de consentimiento. Como cambian el texto, la forma y la zona pulsable, la fecha de despliegue se anota en este `design.md` como **nuevo punto de corte**. Las cifras de antes y después de esa fecha no se pueden comparar directamente.
 
+**Punto de corte: 2026-10-06.** Es el día en que se fusiona la PR #3 y GitHub Pages publica el cambio. Las comparaciones de conversión de Telegram se hacen por tramos: del 2026-09-17 al 2026-10-05 con la franja anterior, y desde el 2026-10-06 con la nueva.
+
 ## Risks / Trade-offs
 
 - **[Toques accidentales]** Una franja entera pulsable recoge toques de quien solo intenta hacer scroll. → Riesgo bajo: la franja mide ~71 px y está por encima de la tabla, no encima. Si `join_telegram` se dispara de forma anómala, se puede limitar la zona pulsable a la pastilla sin cambiar el aspecto.
