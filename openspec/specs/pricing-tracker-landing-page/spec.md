@@ -127,6 +127,14 @@ The iframe `src` SHALL point to the published document pinned to the prices tab 
 - **WHEN** the page is viewed at any viewport width and the iframe has loaded
 - **THEN** the published table's scroll container has no vertical overflow, and a vertical scroll gesture over the table scrolls the page
 
+#### Scenario: Recalibrated height accommodates the current table on desktop
+- **WHEN** the iframe height has been recalibrated for the current published table and the page is viewed at a 1920px-wide viewport after the sheet has loaded
+- **THEN** the published table's scroll container has `scrollHeight` less than or equal to `clientHeight`, and a vertical scroll gesture over the table scrolls the page rather than the inner container
+
+#### Scenario: Recalibrated height leaves room for mobile horizontal scrolling
+- **WHEN** the iframe height has been recalibrated for the current published table and the page is viewed at a 375px-wide viewport after the sheet has loaded
+- **THEN** the published table's scroll container has `scrollHeight` less than or equal to `clientHeight`, all columns remain reachable by horizontal scrolling inside the embed, and a vertical scroll gesture over the table scrolls the page
+
 #### Scenario: Unused width blends into the page
 - **WHEN** the page is viewed at a 1920px-wide viewport and the published table is narrower than the iframe
 - **THEN** the area between the table's right edge and the iframe's right edge renders in the page background colour rather than white
