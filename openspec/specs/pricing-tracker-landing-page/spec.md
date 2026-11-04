@@ -107,7 +107,7 @@ The site owner's address SHALL NOT appear as a literal string anywhere in the re
 ### Requirement: Embedded Google Sheet iframe
 The page SHALL embed the published Google Sheet in a responsive `<iframe>` that spans the full width of its own section, has no visible border, and has lazy loading enabled.
 
-The iframe SHALL have a fixed height equal to the published table's height plus room for a horizontal scrollbar, so that the embed never shows an inner vertical scrollbar and vertical scrolling over the table moves the page. Because the height cannot be read from a cross-origin document, it SHALL be a hand-maintained value, updated in the same change whenever products are added to or removed from the sheet.
+The iframe SHALL have a fixed height equal to the published table's height plus room for a horizontal scrollbar, so that the embed never shows an inner vertical scrollbar and vertical scrolling over the table moves the page. Because the height cannot be read from a cross-origin document, it SHALL be a hand-maintained value, updated in the same change whenever products are added to or removed from the sheet, and derived from the `scrollHeight` of the published table's scroll container plus the thickness of its horizontal scrollbar.
 
 The iframe SHALL NOT be framed as a card: it SHALL have no rounded corners and no shadow. It SHALL be composited with `mix-blend-mode: multiply`, so that the opaque white background painted by the published document, including any width left unused to the right of the table, renders in the page background colour.
 
@@ -134,6 +134,10 @@ The iframe `src` SHALL point to the published document pinned to the prices tab 
 #### Scenario: Recalibrated height leaves room for mobile horizontal scrolling
 - **WHEN** the iframe height has been recalibrated for the current published table and the page is viewed at a 375px-wide viewport after the sheet has loaded
 - **THEN** the published table's scroll container has `scrollHeight` less than or equal to `clientHeight`, all columns remain reachable by horizontal scrolling inside the embed, and a vertical scroll gesture over the table scrolls the page
+
+#### Scenario: Height follows the number of products
+- **WHEN** products are added to or removed from the sheet and the iframe height is recalibrated in the same change
+- **THEN** the iframe height is at least the scroll container's `scrollHeight` plus its horizontal scrollbar thickness, and the comment next to the iframe states the measured table height
 
 #### Scenario: Unused width blends into the page
 - **WHEN** the page is viewed at a 1920px-wide viewport and the published table is narrower than the iframe
