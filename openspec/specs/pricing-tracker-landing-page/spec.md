@@ -107,7 +107,7 @@ The site owner's address SHALL NOT appear as a literal string anywhere in the re
 ### Requirement: Embedded Google Sheet iframe
 The page SHALL embed the published Google Sheet in a responsive `<iframe>` that spans the full width of its own section, has no visible border, and has lazy loading enabled.
 
-The iframe SHALL have a fixed height equal to the published table's height plus room for a horizontal scrollbar, so that the embed never shows an inner vertical scrollbar and vertical scrolling over the table moves the page. Because the height cannot be read from a cross-origin document, it SHALL be a hand-maintained value, updated in the same change whenever products are added to or removed from the sheet, and derived from the `scrollHeight` of the published table's scroll container plus the thickness of its horizontal scrollbar.
+When measurement succeeds, the page SHALL automatically size the iframe to fit the published table and its horizontal scrollbar, without a manually maintained height per product. The page SHALL recalculate when the iframe's available width or effective display scale changes. When measurement fails or JavaScript is unavailable, the iframe SHALL remain visible and scrollable with an initial or last valid height; measurement failures SHALL be reported without hiding the sheet.
 
 The iframe SHALL NOT be framed as a card: it SHALL have no rounded corners and no shadow. It SHALL be composited with `mix-blend-mode: multiply`, so that the opaque white background painted by the published document, including any width left unused to the right of the table, renders in the page background colour.
 
@@ -124,20 +124,36 @@ The iframe `src` SHALL point to the published document pinned to the prices tab 
 - **THEN** its `border-radius` is 0, its `box-shadow` is `none` and its `mix-blend-mode` is `multiply`
 
 #### Scenario: Embed has no inner vertical scroll
-- **WHEN** the page is viewed at any viewport width and the iframe has loaded
+- **WHEN** the iframe has loaded and automatic measurement has succeeded
 - **THEN** the published table's scroll container has no vertical overflow, and a vertical scroll gesture over the table scrolls the page
 
 #### Scenario: Recalibrated height accommodates the current table on desktop
-- **WHEN** the iframe height has been recalibrated for the current published table and the page is viewed at a 1920px-wide viewport after the sheet has loaded
+- **WHEN** automatic measurement succeeds at a 1920px-wide viewport after the sheet has loaded
 - **THEN** the published table's scroll container has `scrollHeight` less than or equal to `clientHeight`, and a vertical scroll gesture over the table scrolls the page rather than the inner container
 
 #### Scenario: Recalibrated height leaves room for mobile horizontal scrolling
-- **WHEN** the iframe height has been recalibrated for the current published table and the page is viewed at a 375px-wide viewport after the sheet has loaded
+- **WHEN** automatic measurement succeeds at a 375px-wide viewport after the sheet has loaded
 - **THEN** the published table's scroll container has `scrollHeight` less than or equal to `clientHeight`, all columns remain reachable by horizontal scrolling inside the embed, and a vertical scroll gesture over the table scrolls the page
 
 #### Scenario: Height follows the number of products
-- **WHEN** products are added to or removed from the sheet and the iframe height is recalibrated in the same change
-- **THEN** the iframe height is at least the scroll container's `scrollHeight` plus its horizontal scrollbar thickness, and the comment next to the iframe states the measured table height
+- **WHEN** products are added to or removed from the published sheet and the page is loaded after publication with successful measurement
+- **THEN** the iframe height fits the new table and its horizontal scrollbar without editing the page or a height constant for the new product count
+
+#### Scenario: Height responds to width changes
+- **WHEN** the iframe's available width changes and the new measurement succeeds
+- **THEN** the iframe height fits the table and scrollbar at the new width, and an older asynchronous measurement does not overwrite the latest result
+
+#### Scenario: Height responds to display-scale changes
+- **WHEN** the browser window moves to a display with a different effective pixel scale while the page remains open
+- **THEN** the page takes a new measurement and applies it if it succeeds
+
+#### Scenario: Measurement fails
+- **WHEN** the publication cannot be read or measured, including a network, CORS, structure or invalid-measurement failure
+- **THEN** an identifiable error is reported and the original iframe remains visible and scrollable at its initial or last valid height
+
+#### Scenario: JavaScript is unavailable
+- **WHEN** JavaScript is disabled
+- **THEN** the original iframe retains an initial height and remains visible and scrollable
 
 #### Scenario: Unused width blends into the page
 - **WHEN** the page is viewed at a 1920px-wide viewport and the published table is narrower than the iframe

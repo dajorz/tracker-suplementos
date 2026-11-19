@@ -98,11 +98,12 @@
   <main class="w-full pt-3 flex-1">
 
     <section class="mx-auto w-full max-w-[83rem] px-4 mb-8">
-      <!-- Size fits the published table (1280×1366 px + 16 px scrollbar): update width when columns change, height when products are added. multiply blends Google's opaque white into the page. -->
+      <!-- Keep a usable fallback height when measurement is unavailable; multiply blends Google's opaque white into the page. -->
       <iframe
+        id="price-sheet-iframe"
         src="https://docs.google.com/spreadsheets/u/3/d/e/2PACX-1vS4kFZXNEAWRMb34W3yZiF3HItRKxUTmHtrLlq0wyfGXUSEwm7NrtQgKoQPmC2zhyKAbnz5Li6JGSY3/pubhtml?gid=0&amp;single=true&amp;widget=false&amp;headers=false&amp;chrome=false"
         width="100%"
-        style="height: 1382px;"
+        style="height: 1420px;"
         loading="lazy"
         class="border-0 mix-blend-multiply"
         title="Tracker de precios de suplementación"
@@ -227,6 +228,261 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // Measure a script-free copy because the visible Google Sheets iframe is cross-origin.
+    (function fitPriceSheetIframe() {
+      var iframe = document.getElementById('price-sheet-iframe');
+      var sheetUrl = iframe.src;
+      var requestedWidth = 0;
+      var requestVersion = 0;
+      var completedVersion = 0;
+      var isMeasuring = false;
+      var resizeTimer = 0;
+      var resizeObserver = null;
+
+      function prepareMeasurementHtml(html) {
+        var parsed = new DOMParser().parseFromString(html, 'text/html');
+        var viewport = parsed.querySelector('#sheets-viewport');
+        var table = parsed.querySelector('#sheets-viewport .ritz table.waffle');
+        if (!viewport || !table || table.rows.length < 2) {
+          throw new Error('The published sheet does not contain the expected table structure.');
+        }
+
+        parsed.querySelectorAll(
+          'script, noscript, iframe, frame, frameset, object, embed, applet, form, input, button, select, textarea, audio, video, source, track, portal, base, link'
+        ).forEach(function (element) {
+          element.remove();
+        });
+        parsed.querySelectorAll('meta[http-equiv]').forEach(function (element) {
+          element.remove();
+        });
+        parsed.querySelectorAll('style').forEach(function (element) {
+          element.textContent = element.textContent
+            .replace(/@import\s+[^;]+;?/gi, '')
+            .replace(/url\([^)]*\)/gi, 'none');
+        });
+        parsed.querySelectorAll('*').forEach(function (element) {
+          Array.from(element.attributes).forEach(function (attribute) {
+            var name = attribute.name.toLowerCase();
+            if (name === 'style') {
+              element.setAttribute(
+                attribute.name,
+                attribute.value.replace(/@import\s+[^;]+;?/gi, '').replace(/url\([^)]*\)/gi, 'none')
+              );
+              return;
+            }
+            if (
+              name.indexOf('on') === 0 ||
+              name === 'src' ||
+              name === 'srcset' ||
+              name === 'href' ||
+              name === 'xlink:href' ||
+              name === 'action' ||
+              name === 'formaction'
+            ) {
+              element.removeAttribute(attribute.name);
+            }
+          });
+        });
+
+        var policy = parsed.createElement('meta');
+        policy.setAttribute('http-equiv', 'Content-Security-Policy');
+        policy.setAttribute(
+          'content',
+          "default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src data:; base-uri 'none'; form-action 'none'; frame-src 'none'; object-src 'none'"
+        );
+        parsed.head.prepend(policy);
+        return '<!doctype html>' + parsed.documentElement.outerHTML;
+      }
+
+      function measureAtWidth(safeHtml, width) {
+        return new Promise(function (resolve, reject) {
+          var measuringFrame = document.createElement('iframe');
+          var settled = false;
+          var timeout = window.setTimeout(function () {
+            finish(new Error('Timed out while rendering the measurement copy.'));
+          }, 15000);
+
+          function finish(error, height) {
+            if (settled) return;
+            settled = true;
+            window.clearTimeout(timeout);
+            measuringFrame.remove();
+            if (error) reject(error);
+            else resolve(height);
+          }
+
+          measuringFrame.setAttribute('sandbox', 'allow-same-origin');
+          measuringFrame.setAttribute('aria-hidden', 'true');
+          measuringFrame.setAttribute('tabindex', '-1');
+          measuringFrame.title = '';
+          measuringFrame.style.cssText =
+            'position:absolute;left:-10000px;top:0;width:' +
+            width +
+            'px;height:8192px;border:0;visibility:hidden;pointer-events:none;';
+          measuringFrame.addEventListener(
+            'load',
+            async function () {
+              try {
+                var measuredDocument = measuringFrame.contentDocument;
+                var viewport = measuredDocument && measuredDocument.querySelector('#sheets-viewport');
+                var table = measuredDocument && measuredDocument.querySelector('#sheets-viewport .ritz table.waffle');
+                if (!viewport || !table || table.rows.length < 2) {
+                  throw new Error('The measurement copy is missing the expected sheet table.');
+                }
+
+                var ancestor = table.parentElement;
+                while (ancestor && ancestor !== viewport) {
+                  var style = measuredDocument.defaultView.getComputedStyle(ancestor);
+                  if (style.display === 'none') {
+                    ancestor.style.setProperty('display', 'block', 'important');
+                  }
+                  ancestor.style.setProperty('visibility', 'visible', 'important');
+                  ancestor = ancestor.parentElement;
+                }
+                viewport.style.setProperty('display', 'block', 'important');
+                viewport.style.setProperty('flex', 'none', 'important');
+                viewport.style.setProperty('width', '100%', 'important');
+                viewport.style.setProperty('height', '8192px', 'important');
+                viewport.style.setProperty('min-height', '0', 'important');
+                viewport.style.setProperty('overflow', 'auto', 'important');
+                measuredDocument.documentElement.style.setProperty('height', 'auto', 'important');
+                measuredDocument.body.style.setProperty('height', 'auto', 'important');
+                measuredDocument.body.style.setProperty('display', 'block', 'important');
+
+                await measuredDocument.fonts.ready;
+
+                var tableRect = table.getBoundingClientRect();
+                var viewportRect = viewport.getBoundingClientRect();
+                var tableHeight = tableRect.bottom - viewportRect.top;
+                var hasHorizontalOverflow = viewport.scrollWidth > viewport.clientWidth;
+                var horizontalScrollbar = hasHorizontalOverflow
+                  ? Math.max(0, viewport.offsetHeight - viewport.clientHeight)
+                  : 0;
+                var height = Math.ceil(tableHeight + horizontalScrollbar + 2);
+                if (
+                  !Number.isFinite(height) ||
+                  tableHeight < 100 ||
+                  tableHeight > 100000 ||
+                  height <= 0
+                ) {
+                  throw new Error('The published sheet returned an implausible height measurement.');
+                }
+                finish(null, height);
+              } catch (error) {
+                finish(error);
+              }
+            },
+            { once: true }
+          );
+          measuringFrame.addEventListener(
+            'error',
+            function () {
+              finish(new Error('The isolated measurement copy could not be loaded.'));
+            },
+            { once: true }
+          );
+          measuringFrame.srcdoc = safeHtml;
+          document.body.appendChild(measuringFrame);
+        });
+      }
+
+      async function drainMeasurements(safeHtml) {
+        if (isMeasuring) return;
+        isMeasuring = true;
+        while (completedVersion !== requestVersion) {
+          var version = requestVersion;
+          var width = requestedWidth;
+          try {
+            var height = await measureAtWidth(safeHtml, width);
+            if (
+              version === requestVersion &&
+              Math.round(iframe.getBoundingClientRect().width) === width
+            ) {
+              iframe.style.height = height + 'px';
+            }
+          } catch (error) {
+            if (version === requestVersion) {
+              console.error(
+                '[price-sheet-iframe] Automatic height measurement failed; keeping the current iframe height.',
+                error
+              );
+            }
+          }
+          completedVersion = version;
+        }
+        isMeasuring = false;
+      }
+
+      function requestMeasurement(safeHtml, force) {
+        var width = Math.round(iframe.getBoundingClientRect().width);
+        if (!width || (!force && width === requestedWidth)) return;
+        requestedWidth = width;
+        requestVersion += 1;
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(function () {
+          drainMeasurements(safeHtml);
+        }, 100);
+      }
+
+      function watchDisplayScale(safeHtml) {
+        if (!window.matchMedia) return;
+        var pixelRatio = window.devicePixelRatio || 1;
+        var query = window.matchMedia('(resolution: ' + pixelRatio + 'dppx)');
+        var onChange = function () {
+          if (query.removeEventListener) {
+            query.removeEventListener('change', onChange);
+          } else if (query.removeListener) {
+            query.removeListener(onChange);
+          }
+          requestMeasurement(safeHtml, true);
+          watchDisplayScale(safeHtml);
+        };
+        if (query.addEventListener) {
+          query.addEventListener('change', onChange, { once: true });
+        } else if (query.addListener) {
+          query.addListener(onChange);
+        }
+      }
+
+      fetch(sheetUrl, {
+        mode: 'cors',
+        credentials: 'omit',
+        cache: 'no-store'
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('Google Sheets returned HTTP ' + response.status + '.');
+          }
+          var contentType = response.headers.get('content-type') || '';
+          if (!/text\/html/i.test(contentType)) {
+            throw new Error('Google Sheets returned an unexpected content type.');
+          }
+          return response.text();
+        })
+        .then(function (html) {
+          var safeHtml = prepareMeasurementHtml(html);
+          if ('ResizeObserver' in window) {
+            resizeObserver = new ResizeObserver(function () {
+              requestMeasurement(safeHtml);
+            });
+            resizeObserver.observe(iframe);
+          }
+          window.addEventListener('resize', function () {
+            requestMeasurement(safeHtml, true);
+          });
+          watchDisplayScale(safeHtml);
+          requestMeasurement(safeHtml);
+        })
+        .catch(function (error) {
+          console.error(
+            '[price-sheet-iframe] Could not load or validate the published sheet; keeping the fallback iframe height.',
+            error
+          );
+        });
+    })();
+  </script>
 
   <script>
     // Address split into fragments deliberately (anti-scraping) — do not merge into a literal string.
